@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abarrotes El Mercado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="screen-home" class="screen active">
+  <div class="home-wrapper">
+    <div class="home-logo">
+      <svg width="40" height="40" fill="none" stroke="#16a34a" stroke-width="2.2" viewBox="0 0 24 24">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+    </div>
+    <h1 class="home-title">Abarrotes El Mercado</h1>
+    <p class="home-sub">Sistema de Gestión y Ventas</p>
+    <p class="home-select-label">Selecciona tu tipo de acceso</p>
+    <div class="role-cards">
+      <div class="role-card green" onclick="goTo('screen-client')">
+        <div class="role-avatar"></div>
+        <div class="role-name">Cliente</div>
+        <div class="role-desc">Realiza tus compras y acumula puntos de fidelización</div>
+      </div>
+      <div class="role-card blue" onclick="goTo('screen-cajero')">
+        <div class="role-avatar"></div>
+        <div class="role-name">Cajero</div>
+        <div class="role-desc">Procesa ventas y gestiona el punto de venta</div>
+      </div>
+      <div class="role-card purple" onclick="goTo('screen-admin')">
+        <div class="role-avatar"></div>
+        <div class="role-name">Administrador</div>
+        <div class="role-desc">Gestiona productos, inventario y reportes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="screen-client" class="screen">
+  <div class="topbar topbar-green">
+    <button class="topbar-back" onclick="goTo('screen-home')">&#8592;</button>
+    <span class="topbar-icon">🛒</span>
+    <div class="topbar-text">
+      <div class="topbar-title">Abarrotes El Mercado</div>
+      <div class="topbar-sub">Productos frescos y de calidad</div>
+    </div>
+    <div class="client-topbar-right">
+      <div class="points-badge" onclick="openProfile()">
+        <span>&#9733;</span>
+        <div>
+          <small>Puntos</small>
+          <span id="points-display">0</span>
+        </div>
+      </div>
+      <button class="cart-btn" onclick="openCart()">
+        🛒 Carrito
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="category-bar">
+    <button class="cat-btn active" onclick="filterCat(this,'todos')">Todos</button>
+    <button class="cat-btn" onclick="filterCat(this,'frutas')">Frutas</button>
+    <button class="cat-btn" onclick="filterCat(this,'verduras')">Verduras</button>
+    <button class="cat-btn" onclick="filterCat(this,'bebidas')">Bebidas</button>
+    <button class="cat-btn" onclick="filterCat(this,'lacteos')">Lácteos</button>
+    <button class="cat-btn" onclick="filterCat(this,'panaderia')">Panadería</button>
+  </div>
+
+  <div class="products-grid" id="products-grid"></div>
+</div>
+
+<div id="screen-cajero" class="screen">
+  <div class="topbar topbar-blue">
+    <button class="topbar-back" onclick="goTo('screen-home')">&#8592;</button>
+    <span class="topbar-icon">💳</span>
+    <div class="topbar-text">
+      <div class="topbar-title">Punto de Venta - Cajero</div>
+      <div class="topbar-sub">Gestión de ventas y cobros</div>
+    </div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-card-top">
+        <span class="stat-card-label">Ventas Hoy</span>
+        <span class="icon-blue stat-icon">💲</span>
+      </div>
+      <div class="stat-card-val">$425.000</div>
+      <div class="stat-card-sub green">+12% vs ayer</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top">
+        <span class="stat-card-label">Transacciones</span>
+        <span class="icon-green stat-icon">📈</span>
+      </div>
+      <div class="stat-card-val">24</div>
+      <div class="stat-card-sub">En el día</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top">
+        <span class="stat-card-label">Ticket Promedio</span>
+        <span class="icon-purple stat-icon">📦</span>
+      </div>
+      <div class="stat-card-val">$17.708</div>
+      <div class="stat-card-sub">Por compra</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-top">
+        <span class="stat-card-label">Puntos Canjeados</span>
+        <span class="icon-orange stat-icon">🟧</span>
+      </div>
+      <div class="stat-card-val">1.250</div>
+      <div class="stat-card-sub">Hoy</div>
+    </div>
+  </div>
+  <div class="cajero-module">
+    <span class="cajero-icon">💳</span>
+    <h2>Módulo de Cajero</h2>
+    <p>Esta sección está en desarrollo. Aquí podrás procesar ventas, registrar pagos, consultar productos y gestionar el flujo de caja del día.</p>
+  </div>
+</div>
+
+<div id="screen-admin" class="screen">
+  <div class="topbar topbar-purple">
+    <button class="topbar-back" onclick="goTo('screen-home')">&#8592;</button>
+    <span class="topbar-icon">⚙️</span>
+    <div class="topbar-text">
+      <div class="topbar-title">Panel de Administración</div>
+      <div class="topbar-sub">Gestión completa del negocio</div>
+    </div>
+  </div>
+  <div class="admin-stats">
+    <div class="admin-stat">
+      <div class="admin-stat-top">
+        <span class="admin-stat-label">Ventas Mensuales</span>
+        <span class="stat-icon" style="color:var(--green)">💲</span>
+      </div>
+      <div class="admin-stat-val">$12.450.000</div>
+      <div class="admin-stat-sub">+18% vs mes anterior</div>
+    </div>
+    <div class="admin-stat">
+      <div class="admin-stat-top">
+        <span class="admin-stat-label">Productos Activos</span>
+        <span class="stat-icon" style="color:var(--blue)">📦</span>
+      </div>
+      <div class="admin-stat-val">247</div>
+      <div class="admin-stat-sub" style="color:var(--gray-400)">En inventario</div>
+    </div>
+    <div class="admin-stat">
+      <div class="admin-stat-top">
+        <span class="admin-stat-label">Clientes Registrados</span>
+        <span class="stat-icon" style="color:var(--purple)">👥</span>
+      </div>
+      <div class="admin-stat-val">1.834</div>
+      <div class="admin-stat-sub">+45 este mes</div>
+    </div>
+  </div>
+  <div class="admin-modules">
+    <div class="admin-module">
+      <div class="admin-module-title">
+        <span style="color:var(--purple);font-size:1.3rem">📊</span> Reportes y Análisis
+      </div>
+      <p>Accede a reportes detallados de ventas, inventario y rendimiento del negocio.</p>
+      <button class="admin-btn purple">Ver Reportes</button>
+    </div>
+    <div class="admin-module">
+      <div class="admin-module-title">
+        <span style="color:var(--blue);font-size:1.3rem">📦</span> Gestión de Inventario
+      </div>
+      <p>Administra productos, precios, stock y categorías del catálogo.</p>
+      <button class="admin-btn blue">Gestionar Productos</button>
+    </div>
+    <div class="admin-module">
+      <div class="admin-module-title">
+        <span style="color:var(--green);font-size:1.3rem">👥</span> Clientes y Fidelización
+      </div>
+      <p>Gestiona la base de clientes y el programa de puntos de fidelización.</p>
+      <button class="admin-btn green">Ver Clientes</button>
+    </div>
+    <div class="admin-module">
+      <div class="admin-module-title">
+        <span style="color:var(--orange);font-size:1.3rem">📈</span> Configuración
+      </div>
+      <p>Ajusta configuraciones del sistema, usuarios y permisos.</p>
+      <button class="admin-btn orange">Configurar</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay-bg" id="overlay-bg" onclick="closeCart()"></div>
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-header">
+    <h3>Tu Carrito</h3>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cart-body">
+    <p class="cart-empty">Tu carrito está vacío</p>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="points-box">
+      <div class="points-toggle">
+        <div class="points-toggle-left">
+          <span style="color:var(--orange)">⭐</span> Usar Puntos
+        </div>
+        <div class="toggle-switch off" id="pts-toggle" onclick="togglePoints()"></div>
+      </div>
+      <div class="points-row"><span>Puntos disponibles:</span><span id="pts-available">0</span></div>
+      <div class="points-row"><span>Máximo a usar:</span><span id="pts-max">0</span></div>
+      <input type="range" class="points-slider" id="pts-slider" min="0" max="0" value="0" oninput="updatePointsSlider()" disabled>
+      <div class="points-used-row">
+        <span class="points-used" id="pts-used">0 puntos</span>
+        <span class="points-discount" id="pts-disc">-$0</span>
+      </div>
+    </div>
+    <div class="cart-totals">
+      <div class="cart-row"><span>Subtotal:</span><span id="cart-subtotal">$0</span></div>
+      <div class="cart-total-row"><span>Total:</span><span id="cart-total">$0</span></div>
+      <div class="earn-row">🎁 Ganarás: <strong id="earn-pts">0 puntos</strong></div>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+  </div>
+</div>
+
+<div class="overlay-bg" id="profile-bg" onclick="closeProfile()"></div>
+<div class="profile-panel" id="profile-panel">
+  <div class="profile-header">
+    <h3>Mi Perfil</h3>
+    <button class="profile-close" onclick="closeProfile()">✕</button>
+  </div>
+  <div class="profile-user">
+    <div class="profile-avatar">
+      <svg width="28" height="28" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+    </div>
+    <div>
+      <div class="profile-name">Cliente VIP</div>
+      <div class="profile-since">Miembro desde 2025</div>
+    </div>
+  </div>
+  <div class="points-card">
+    <div class="points-card-label">⭐ Puntos Acumulados</div>
+    <div class="points-card-num" id="profile-pts">0</div>
+    <div class="points-card-equiv" id="profile-equiv">Equivale a $0 en descuentos</div>
+  </div>
+  <div class="profile-stats">
+    <div class="profile-stat green">
+      <label>Total Compras</label>
+      <div class="val" id="profile-total-compras">$0</div>
+    </div>
+    <div class="profile-stat purple">
+      <label>Nivel</label>
+      <div class="val" id="profile-nivel">Bronce</div>
+    </div>
+  </div>
+  <div class="profile-how">
+    <h4>🎁 ¿Cómo funcionan los puntos?</h4>
+    <ul>
+      <li>Ganas 10 puntos por cada $1.000 de compra</li>
+      <li>100 puntos = $1.000 de descuento</li>
+      <li>Usa tus puntos en cualquier compra</li>
+    </ul>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
